@@ -2,6 +2,8 @@ import Link from "next/link";
 import Header from "../components/header";
 import ProductList from '../components/productList'
 
+import Meta from '../components/meta'
+
 import requestService from '../services/index.js'
 
 export default class extends React.Component {
@@ -15,12 +17,22 @@ export default class extends React.Component {
     const { products } = this.props
 
     return (
-      <main>
-      <Header />
-      <main>
-        <ProductList products={ products }/>
-      </main>
-    </main>
+      <div>
+          <Meta />
+          <Header />
+          <main>
+              <div className="products__container">
+                  <ProductList products={ products }/>
+              </div>
+          </main>
+          
+          <style jsx>{`
+            .products__container {
+              background-color: #f7f7f72e;
+              padding: 2rem 0;
+            }
+          `}</style>
+      </div>
     )
   }
 }
