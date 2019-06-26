@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Header from "../components/header";
 import ProductList from '../components/productList'
 
@@ -6,26 +5,32 @@ import Meta from '../components/meta'
 
 import requestService from '../services/index.js'
 
-export default class extends React.Component {
+class Index extends React.Component {
   static async getInitialProps() {
-    let { data: products } = await requestService({ path: 'products' })
+    let { data: productsList } = await requestService({ path: 'products' })
+    
+    let products = productsList.map((product) => {
+      product.loader = false
+      
+      return product
+    })
 
     return { products }
   }
 
   render() {
     const { products } = this.props
-
+    
     return (
       <div>
           <Meta />
-          <Header />
+          <Header/>
           <main>
               <div className="products__container">
-                  <ProductList products={ products }/>
+                  <ProductList products={ products } />
               </div>
           </main>
-          
+
           <style jsx>{`
             .products__container {
               background-color: #f7f7f72e;
@@ -36,3 +41,5 @@ export default class extends React.Component {
     )
   }
 }
+
+export default Index;
